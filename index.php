@@ -12,6 +12,7 @@ use DesignPatterns\Decorator\Personajes\Guerrero;
 use DesignPatterns\Decorator\Personajes\Mago;
 use DesignPatterns\Decorator\Personajes\PersonajeManager;
 use DesignPatterns\Decorator\Armas\InvalidWeaponException;
+use DesignPatterns\Strategy\StrategyManager;
 
 // Procesar formulario del Factory Pattern
 $factoryResult = '';
@@ -112,6 +113,41 @@ if (($_POST['action'] ?? '') === 'decorator' && !empty($_POST['personaje_tipo'])
     }
 }
 
+// Procesar formulario del Strategy Pattern
+$strategyResult = '';
+$strategyError = '';
+
+if (($_POST['action'] ?? '') === 'strategy' && !empty($_POST['mensaje'])) {
+    try {
+        $mensaje = $_POST['mensaje'];
+        $estrategia = $_POST['estrategia'] ?? 'console';
+
+        $manager = new StrategyManager();
+
+        // Si se seleccionó estrategia file, se procede a descargar el archivo localmennte
+        if ($estrategia === 'file') {
+            // Redirigir a la página de descarga
+            $mensajeCodificado = urlencode($mensaje);
+            header("Location: download.php?mensaje={$mensajeCodificado}");
+            exit;
+        }
+
+        $exito = $manager->setStrategy($estrategia);
+        if (!$exito) {
+            $strategyError = "Estrategia '{$estrategia}' no válida. Usando estrategia por defecto.";
+        }
+
+        $resultado = $manager->procesarMensaje($mensaje);
+        $strategyResult = [
+            'mensaje_original' => $mensaje,
+            'estrategia_usada' => $manager->getEstrategiaActual(),
+            'resultado' => $resultado,
+        ];
+    } catch (Exception $e) {
+        $strategyError = "Error inesperado: " . $e->getMessage();
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -126,6 +162,7 @@ if (($_POST['action'] ?? '') === 'decorator' && !empty($_POST['personaje_tipo'])
 <body>
     <h1>Ejercicios de Patrones de Diseño en PHP</h1>
 
+    <!-- FACTORY PATTERN -->
     <div class="container">
         <h1>🏭 Factory Pattern - Creación de Personajes</h1>
 
@@ -170,6 +207,7 @@ if (($_POST['action'] ?? '') === 'decorator' && !empty($_POST['personaje_tipo'])
         <?php endif; ?>
     </div>
 
+    <!-- ADAPTER PATTERN -->
     <div class="container">
         <h1>🔄 Adapter Pattern - Compatibilidad de Archivos</h1>
 
@@ -216,6 +254,7 @@ if (($_POST['action'] ?? '') === 'decorator' && !empty($_POST['personaje_tipo'])
         <?php endif; ?>
     </div>
 
+    <!-- DECORATOR PATTERN -->
     <div class="container">
         <h1>⚔️ Decorator Pattern - Sistema de Armas</h1>
 
@@ -329,6 +368,58 @@ if (($_POST['action'] ?? '') === 'decorator' && !empty($_POST['personaje_tipo'])
                             </ul>
                         </div>
                     <?php endif; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <!-- STRATEGY PATTERN -->
+    <div class="container">
+        <h1>📤 Strategy Pattern - Salida de Mensajes</h1>
+
+        <form method="POST" action="">
+            <input type="hidden" name="action" value="strategy">
+
+            <div class="form-group">
+                <label for="mensaje">Escribe tu mensaje:</label>
+                <textarea name="mensaje" id="mensaje" rows="3" placeholder="Escribe aquí tu mensaje..." required><?= htmlspecialchars($_POST['mensaje'] ?? '') ?></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="estrategia">Selecciona el formato de salida:</label>
+                <select name="estrategia" id="estrategia">
+                    <option value="console" <?= ($_POST['estrategia'] ?? '') === 'console' ? 'selected' : '' ?>>
+                        🖥️ Consola (texto plano)
+                    </option>
+                    <option value="json" <?= ($_POST['estrategia'] ?? '') === 'json' ? 'selected' : '' ?>>
+                        📋 JSON (formato estructurado)
+                    </option>
+                    <option value="file" <?= ($_POST['estrategia'] ?? '') === 'file' ? 'selected' : '' ?>>
+                        📁 Archivo TXT (guardar en archivo)
+                    </option>
+                </select>
+            </div>
+
+            <button type="submit">Procesar Mensaje</button>
+        </form>
+
+        <?php if ($strategyError): ?>
+            <div class="error">
+                <strong>Error:</strong> <?= htmlspecialchars($strategyError) ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($strategyResult): ?>
+            <div class="result">
+                <div class="strategy-result">
+                    <h2>Mensaje procesado</h2>
+
+                    <div class="single-strategy-result">
+                        <h3>Formato: <?= htmlspecialchars(ucfirst($strategyResult['estrategia_usada'])) ?></h3>
+                        <div class="output-result">
+                            <pre><?= htmlspecialchars($strategyResult['resultado']) ?></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
         <?php endif; ?>
