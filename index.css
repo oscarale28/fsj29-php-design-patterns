@@ -123,3 +123,240 @@ hr {
 .status-list li:last-child {
     border-bottom: none;
 }
+
+/* Adapte
+r Pattern Styles */
+.adapter-result {
+    padding: 20px;
+}
+
+.adapter-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    border-left: 4px solid #28a745;
+}
+
+.adapter-section h3 {
+    color: #155724;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.info-item {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.success {
+    color: #155724;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    border-left: 4px solid #28a745;
+}
+
+.conversion-info {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.conversion-steps {
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+
+.conversion-steps ol {
+    margin-left: 20px;
+    margin-top: 8px;
+}
+
+.conversion-steps li {
+    margin: 5px 0;
+    color: #155724;
+}
+
+.system-info {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.system-info p {
+    margin: 8px 0;
+    color: #155724;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    color: #333;
+    margin-bottom: 8px;
+}
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    resize: vertical;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+    .info-grid,
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .character-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* D
+ecorator Pattern Styles */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.checkbox-item:hover {
+    background: rgba(0, 123, 255, 0.1);
+    border-color: #007bff;
+}
+
+.checkbox-item input[type="checkbox"] {
+    margin-right: 10px;
+    width: auto;
+    margin-bottom: 0;
+}
+
+.decorator-comparison {
+    padding: 20px;
+}
+
+.character-comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.character-before,
+.character-after {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid rgba(40, 167, 69, 0.3);
+}
+
+.character-before h3,
+.character-after h3 {
+    color: #155724;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.arrow {
+    font-size: 2em;
+    text-align: center;
+    color: #28a745;
+}
+
+.bonus {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.weapons-applied {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #28a745;
+}
+
+.weapons-applied h4 {
+    color: #155724;
+    margin-bottom: 10px;
+}
+
+.weapons-applied ul {
+    list-style: none;
+    padding: 0;
+}
+
+.weapons-applied li {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border-left: 3px solid #28a745;
+}
+
+/* Responsive adjustments for Decorator */
+@media (max-width: 768px) {
+    .character-comparison {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .arrow {
+        transform: rotate(90deg);
+        font-size: 1.5em;
+    }
+
+    .checkbox-group {
+        gap: 8px;
+    }
+
+    .checkbox-item {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}
