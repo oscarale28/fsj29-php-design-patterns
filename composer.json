@@ -1,0 +1,16 @@
+{
+    "name": "php-design-patterns/exercises",
+    "description": "Ejercicios prácticos de patrones de diseño en PHP",
+    "type": "project",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "DesignPatterns\\": "src/DesignPatterns/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
